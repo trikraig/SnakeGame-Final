@@ -12,7 +12,7 @@ void cpuSnake::Update(std::vector<Food>& allFood, std::vector<Snake*>& allPlayer
 	currentTargetSquared.x = pow(currentTarget.x, 2);
 	currentTargetSquared.y = pow(currentTarget.y, 2);
 
-	if (breath < breathThreshold)
+	if (breathRemaining < breathThreshold)
 	{
 		needsAir = true;
 	}
