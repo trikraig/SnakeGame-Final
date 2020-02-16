@@ -1,6 +1,6 @@
 #include "snake.h"
 
-Snake::Snake(sf::Vector2f new_position, sf::Color new_color, int new_headSize, int new_playerNumber) : color(new_color), headSize(new_headSize), playerNumber(new_playerNumber)
+Snake::Snake(sf::Vector2f new_position, sf::Color new_color, int new_headSize, int new_playerNumber) : color(new_color), headRadius(new_headSize), playerNumber(new_playerNumber)
 {
 	//Preset colours for each snake.
 	switch (playerNumber)
@@ -42,7 +42,7 @@ void Snake::Render(sf::RenderWindow & window)
 {
 	for (auto &segment : body)
 	{
-		sf::CircleShape *shape = new sf::CircleShape((float)headSize);
+		sf::CircleShape *shape = new sf::CircleShape((float)headRadius);
 		shape->setFillColor(color);
 		shape->setPosition(segment.position);
 		window.draw(*shape);
@@ -53,7 +53,7 @@ void Snake::Render(sf::RenderWindow & window)
 
 int Snake::getHeadSize() const
 {
-	return headSize;
+	return headRadius;
 }
 
 sf::Vector2f Snake::getPosition() const
@@ -119,15 +119,15 @@ void Snake::checkCollisions(const int &screenWidth, const int &screenHeight, con
 			/*Grow(food.getScore());*/
 			growAmount = food.getScore();
 			food.toggleAlive();
-			food.generateNewValues(screenWidth, screenHeight, headSize);
+			food.generateNewValues(screenWidth, screenHeight, headRadius);
 			score += food.getScore();
 		}
 	}
 
 	//If snake head is two spaces above the water line will shrink from the front. 
-	if (body.front().position.y < (waterPos.y - (float)headSize * 2))
+	if (body.front().position.y < (waterPos.y - (float)headRadius * 2))
 	{
-		body.front().position.y = waterPos.y - ((float)headSize * 2);
+		body.front().position.y = waterPos.y - ((float)headRadius * 2);
 
 		if (body.size() > 1)
 		{
@@ -240,7 +240,7 @@ int Snake::getScore()
 
 float Snake::getBreath()
 {
-	return breath;
+	return breathRemaining;
 }
 
 bool Snake::getIsDead()
@@ -327,15 +327,15 @@ void Snake::Breath(const sf::Vector2f &water)
 {
 	if (body.front().position.y > water.y)
 	{
-		breath -= breathInc;
+		breathRemaining -= breathInc;
 	}
 
 	else if (body.front().position.y < water.y)
 	{
-		breath = 100;
+		breathRemaining = 100;
 	}
 
-	if (breath < 0)
+	if (breathRemaining < 0)
 	{
 		Shrink();
 	}
@@ -354,7 +354,7 @@ void Snake::Breath(const sf::Vector2f &water)
 
 void Snake::setDead()
 {
-	breath = 0;
+	breathRemaining = 0;
 	isDead = true;
 }
 

@@ -5,7 +5,7 @@
 #include <string>
 
 
-
+//Test new branch - HELLO!
 
 void Game::PlayGame(sf::RenderWindow & window, const int &numberOfPlayers, const int &numberOfcpuPlayers, const sf::Sprite &background)
 {
@@ -172,7 +172,7 @@ void Game::PlayGame(sf::RenderWindow & window, const int &numberOfPlayers, const
 					snake->Render(window);
 				}
 				//Draws text to window.
-				DisplayText(window, snake);
+				DisplayUI(window, snake);
 			}
 
 			renderWalls(window); //Draws walls to window.
@@ -211,7 +211,7 @@ void Game::PlayGame(sf::RenderWindow & window, const int &numberOfPlayers, const
 }
 
 //Manages game UI.
-void Game::DisplayText(sf::RenderWindow & window, Snake* player)
+void Game::DisplayUI(sf::RenderWindow & window, Snake* player)
 {
 	//Error if font could not be loaded/
 	if (!font.loadFromFile("font.ttf"))

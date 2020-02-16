@@ -33,7 +33,7 @@ public:
 
 	
 	void PlayGame(sf::RenderWindow & window, const int &numberOfPlayers, const int &numberOfcpuPlayers, const sf::Sprite &background);
-	void DisplayText(sf::RenderWindow & window, Snake* player);
+	void DisplayUI(sf::RenderWindow & window, Snake* player);
 	void displayGameOver(sf::RenderWindow & window);
 	void generateFood(const int &screenWidth, const int &screenHeight, const int &snakeHeadSize);
 	void renderWalls(sf::RenderWindow & window);

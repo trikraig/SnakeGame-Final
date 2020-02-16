@@ -12,20 +12,20 @@ protected:
 
 	int xInc{ 0 };
 	int yInc{ 20 };
-	int orientation{ 90 };
-	int headSize;
+	int orientationInDegrees{ 90 };
+	int headRadius;
 	int playerNumber;
 	int score{ 0 };
 	int growAmount{ 0 };
 	//For use with custom linked list instead of body.size().
-	int currentSnakeSize;
-	float breath{ 100 };
+	int currentSnakeSize{ 0 };
+	float breathRemaining{ 100 };
 	float breathInc{ 1 };
 	bool isDead{ false };
 	bool isAboveWater{ false };
 	bool isMoving{ false };
 	bool countedDead{ false };
-	bool isCPU;
+	bool isCPU{ false };
 	sf::Color color;
 
 	enum class EDirection
@@ -36,11 +36,11 @@ protected:
 	//Default direction
 	EDirection directionOne{ EDirection::eEast };
 	//For prevention of snake going back on itself.
-	EDirection previousDirection;
+	EDirection previousDirection{ EDirection::eEast };
 	//For AI to calculate next target.
-	EDirection targetRelativeToPos;
+	EDirection targetRelativeToPos{ EDirection::eEast };
 	//Adjust range of movement
-	const float& h = static_cast <float> (headSize * 2);
+	const float& h = static_cast <float> (headRadius * 2);
 	//Stores position before added to std::list or the custom linked list.
 	struct structSegment
 	{
@@ -70,11 +70,6 @@ public:
 	void changeDirection(const sf::Vector2f &new_position);
 	void Breath(const sf::Vector2f &water);
 	void setDead();
-
-	//Related to custom linked list. Not used in game but for reference.
-	void AddSegment(sf::Vector2f &new_position);
-	void RemoveSegment();
-	void Clear();
 
 	//Get functions
 	sf::Vector2f getPosition() const;
